@@ -15,13 +15,13 @@ pipeline {
                 stage ('Install') {
                     steps {
                         script {
-                            sh 'mvn clean install'
+                            sh 'mvn -DskipITs --settings ./maven/settings.xml clean install'
                         }
                     }
                 }
                 stage ('Analyzing with SonarQube') {
                     steps {
-                        sh 'mvn sonar:sonar'
+                        sh 'mvn -DskipITs --settings ./maven/settings.xml sonar:sonar'
                     }
                 }
                 stage('Deploy for production') {
