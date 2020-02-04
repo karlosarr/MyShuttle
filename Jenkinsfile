@@ -30,7 +30,7 @@ pipeline {
                     }
                     steps {
                         script {
-                            sh 'echo "Produción"'
+                            sh 'mvn -DskipITs --settings ./maven/settings.xml clean package'
                         }
                     }
                 }
