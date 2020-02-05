@@ -36,10 +36,10 @@ pipeline {
                 }
             }
         }
-        stage('Clean') {
+        /*stage('Clean') {
             steps {
                 deleteDir()
             }
-        }
+        }*/
     }
 }
