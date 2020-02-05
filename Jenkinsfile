@@ -34,12 +34,17 @@ pipeline {
                         }
                     }
                 }
+                post {
+                    always {
+                        archiveArtifacts artifacts: 'target/*.war, *.sql', onlyIfSuccessful: true
+                    }
+                }
             }
         }
-        /*stage('Clean') {
+        stage('Clean') {
             steps {
                 deleteDir()
             }
-        }*/
+        }
     }
 }
