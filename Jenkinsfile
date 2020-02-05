@@ -33,10 +33,10 @@ pipeline {
                             sh 'mvn -DskipITs --settings ./maven/settings.xml clean package'
                         }
                     }
-                }
-                post {
-                    always {
-                        archiveArtifacts artifacts: 'target/*.war, *.sql', onlyIfSuccessful: true
+                    post {
+                        always {
+                            archiveArtifacts artifacts: 'target/*.war, *.sql', onlyIfSuccessful: true
+                        }
                     }
                 }
             }
