@@ -3,6 +3,5 @@ language: java
 cache:
   directories:
   - "$HOME/.cache"
-  - "$HOME/.m2"
 script: "mvn -DskipITs clean install"
 script: "mvn -DskipITs sonar:sonar"
