@@ -5,13 +5,13 @@ cache:
   - "$HOME/.cache"
 install:
   provider: script
-  script: "mvn -DskipITs --settings ./maven/settings.xml clean install"
+  script: "mvn -DskipITs clean install"
   skip_cleanup: true
   on:
     tags: true
 deploy:
   provider: script
-  script: "mvn -DskipITs --settings ./maven/settings.xml sonar:sonar"
+  script: "mvn -DskipITs sonar:sonar"
   skip_cleanup: true
   on:
     tags: true
