@@ -7,9 +7,7 @@ cache:
 install:
   provider: script
   script: mvn -DskipITs clean install
-  skip_cleanup: true
   
 deploy:
   provider: script
   script: mvn -DskipITs sonar:sonar
-  skip_cleanup: true
