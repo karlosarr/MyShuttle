@@ -32,11 +32,11 @@ pipeline {
                         script {
                             sh 'mvn -DskipITs --settings ./maven/settings.xml clean package'
                         }
+                        step([$class: 'TeamCompletedStatusPostBuildAction'])
                     }
                     post {
                         always {
                             archiveArtifacts artifacts: 'target/*.war, *.sql', onlyIfSuccessful: true
-                            step([$class: 'TeamCompletedStatusPostBuildAction'])
                         }
                     }
                 }
