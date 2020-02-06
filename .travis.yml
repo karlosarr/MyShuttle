@@ -4,8 +4,5 @@ cache:
   directories:
   - "$HOME/.cache"
   - "$HOME/.m2"
-install:
-  script: mvn -DskipITs clean install
-  
-deploy:
-  script: mvn -DskipITs sonar:sonar
+script: mvn -DskipITs clean install
+script: mvn -DskipITs sonar:sonar
