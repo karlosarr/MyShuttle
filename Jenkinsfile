@@ -32,7 +32,7 @@ pipeline {
                         script {
                             sh 'mvn -DskipITs --settings ./maven/settings.xml clean package'
                         }
-                        step([$class: 'TeamCompletedStatusPostBuildAction'])
+                        step([$class: 'TeamCollectResultsPostBuildAction'])
                     }
                     post {
                         always {
