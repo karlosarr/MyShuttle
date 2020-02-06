@@ -36,6 +36,7 @@ pipeline {
                     post {
                         always {
                             archiveArtifacts artifacts: 'target/*.war, *.sql', onlyIfSuccessful: true
+                            step([$class: 'TeamCompletedStatusPostBuildAction'])
                         }
                     }
                 }
