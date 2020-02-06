@@ -5,9 +5,7 @@ cache:
   - "$HOME/.cache"
   - "$HOME/.m2"
 install:
-  provider: script
   script: mvn -DskipITs clean install
   
 deploy:
-  provider: script
   script: mvn -DskipITs sonar:sonar
