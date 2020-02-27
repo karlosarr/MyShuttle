@@ -1,12 +1,11 @@
 sudo: false
 language: java
-jdk: openjdk8
+jdk:
+  - oraclejdk8
 cache:
   directories:
   - "$HOME/.cache"
 script:
-  - jdk_switcher use openjdk8
   - "mvn -DskipITs clean install"
 script:
-   - jdk_switcher use openjdk8
   - "mvn -DskipITs sonar:sonar"
