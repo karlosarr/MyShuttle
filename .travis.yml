@@ -4,5 +4,9 @@ jdk: oraclejdk8
 cache:
   directories:
   - "$HOME/.cache"
-script: "mvn -DskipITs clean install"
-script: "mvn -DskipITs sonar:sonar"
+script:
+  - jdk_switcher use oraclejdk8
+  - "mvn -DskipITs clean install"
+script:
+   - jdk_switcher use oraclejdk8
+  - "mvn -DskipITs sonar:sonar"
