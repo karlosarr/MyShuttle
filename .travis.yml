@@ -10,3 +10,7 @@ script:
   - "mvn -DskipITs clean install"
 script:
   - "mvn -DskipITs sonar:sonar"
+deploy:
+  provider: heroku
+  api_key:
+    secure: "YOUR ENCRYPTED API KEY"
