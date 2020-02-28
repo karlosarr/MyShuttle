@@ -13,4 +13,4 @@ script:
 deploy:
   provider: heroku
   api_key:
-    secure: "API_KEY_HEROKU"
+    secure: "$API_KEY_HEROKU"
