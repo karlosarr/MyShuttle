@@ -15,3 +15,5 @@ deploy:
   api_key:
     secure: "$API_KEY_HEROKU"
   app: myshuttle
+  run: 
+    - 'cd target/'
