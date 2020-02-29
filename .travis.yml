@@ -16,6 +16,8 @@ script:
 #  - "mvn -DskipITs sonar:sonar"
 script:
   - "mvn -DskipITs clean install"
+script:
+  - "cd target/"
 deploy:
   provider: heroku
   api_key:
