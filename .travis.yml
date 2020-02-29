@@ -7,13 +7,18 @@ cache:
   directories:
   - "$HOME/.cache"
 script:
-  - "mvn -DskipITs clean install"
+  - bash init.sh
 script:
-  - "mvn -DskipITs sonar:sonar"
+  - "mvn -DskipITs clean install"
+#script:
+#  - "mvn -DskipITs sonar:sonar"
+script:
+  - "mvn -DskipITs clean install"
 deploy:
   provider: heroku
   api_key:
     secure: "$API_KEY_HEROKU"
   app: myshuttle
-  run: 
+  run:
     - 'cd target/'
+    - 'ls -lsa'
