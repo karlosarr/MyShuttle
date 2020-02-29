@@ -9,6 +9,8 @@ cache:
 script:
   - bash init.sh
 script:
+  - bash docker ps
+script:
   - "mvn -DskipITs clean install"
 #script:
 #  - "mvn -DskipITs sonar:sonar"
@@ -21,4 +23,3 @@ deploy:
   app: myshuttle
   run:
     - 'cd target/'
-    - 'ls -lsa'
