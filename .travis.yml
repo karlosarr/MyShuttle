@@ -16,6 +16,12 @@ script:
 #  - "mvn -DskipITs sonar:sonar"
 script:
   - "mvn -DskipITs clean install"
+script:
+  - "cd target/"
+  - "heroku container:login"
+  - "heroku container:push web --app myshuttle Set container"
+  - "heroku stack:set container --app myshuttle Release"
+  - "heroku container:release web--app myshuttle Release"
 #script:
 #  - "cd target/"
 deploy:
@@ -23,10 +29,10 @@ deploy:
   api_key:
     secure: "$API_KEY_HEROKU"
   app: myshuttle
-  run:
+  #run:
     #- 'heroku war:deploy target/*.war --app myshuttle'
-    - "cd target/"
-    - 'heroku container:login'
-    - 'heroku container:push web --app myshuttle Set container'
-    - 'heroku stack:set container --app myshuttle Release'
-    - 'heroku container:release web --app myshuttle'
+    #- "cd target/"
+    #- 'heroku container:login'
+    #- 'heroku container:push web --app myshuttle Set container'
+    #- 'heroku stack:set container --app myshuttle Release'
+    #- 'heroku container:release web --app myshuttle'
