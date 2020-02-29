@@ -7,9 +7,9 @@ cache:
   directories:
   - "$HOME/.cache"
 script:
-  - bash init.sh
+  - "init.sh"
 script:
-  - bash docker ps
+  - "docker ps"
 script:
   - "mvn -DskipITs clean install"
 #script:
