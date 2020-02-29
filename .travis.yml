@@ -17,8 +17,8 @@ script:
 script:
   - "mvn -DskipITs clean install"
 script:
-  - "bash cd target"
-  - "bash ls -lsa"
+  - "cd target"
+  - "ls -lsa"
 deploy:
   provider: heroku
   api_key:
