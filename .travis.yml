@@ -16,12 +16,6 @@ script:
 #  - "mvn -DskipITs sonar:sonar"
 script:
   - "mvn -DskipITs clean install"
-script:
-  - "cd target/"
-  - "heroku container:login"
-  - "heroku container:push web --app myshuttle Set container"
-  - "heroku stack:set container --app myshuttle Release"
-  - "heroku container:release web--app myshuttle Release"
 #script:
 #  - "cd target/"
 deploy:
