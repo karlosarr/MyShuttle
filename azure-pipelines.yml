@@ -50,6 +50,15 @@ stages:
         mavenAuthenticateFeed: false
         effectivePomSkip: false
         sonarQubeRunAnalysis: false
+    
+    - task: Bash@3
+      inputs:
+        targetType: 'inline'
+        script: |
+          # Write your commands here
+          
+          ls -lsa
+          ls -lsa target/
 
     - task: Docker@2
       displayName: Build an image
@@ -59,9 +68,9 @@ stages:
         command: buildAndPush
         dockerfile: '$(Build.SourcesDirectory)/src/Dockerfile'
         tags: |
-          $(tag)
+          v1.0.$(tag)
     - task: Docker@2
-      displayName: Build an image
+      displayName: Build an image Latest
       inputs:
         containerRegistry: 'Docker Hub'
         repository: 'karlosarr/myshuttle'
