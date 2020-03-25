@@ -20,6 +20,36 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
+    - task: Maven@3
+      displayName: Install
+      inputs:
+        mavenPomFile: 'pom.xml'
+        goals: 'clean install'
+        options: '-DskipITs --settings ./maven/settings.xml clean install'
+        publishJUnitResults: true
+        testResultsFiles: '**/surefire-reports/TEST-*.xml'
+        javaHomeOption: 'JDKVersion'
+        mavenVersionOption: 'Default'
+        mavenAuthenticateFeed: false
+        effectivePomSkip: false
+        sonarQubeRunAnalysis: true
+        sqMavenPluginVersionChoice: 'latest'
+
+    - task: Maven@3
+      displayName: Package
+      inputs:
+        mavenPomFile: 'pom.xml'
+        goals: 'clean install'
+        options: '-DskipITs --settings ./maven/settings.xml clean package'
+        publishJUnitResults: true
+        testResultsFiles: '**/surefire-reports/TEST-*.xml'
+        javaHomeOption: 'JDKVersion'
+        mavenVersionOption: 'Default'
+        mavenAuthenticateFeed: false
+        effectivePomSkip: false
+        sonarQubeRunAnalysis: true
+        sqMavenPluginVersionChoice: 'latest'
+    
     - task: Docker@2
       displayName: Build an image
       inputs:
