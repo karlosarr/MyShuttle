@@ -4,6 +4,7 @@ Hola Felix
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=karlosarr_MyShuttle&metric=alert_status)](https://sonarcloud.io/dashboard?id=karlosarr_MyShuttle)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=karlosarr_MyShuttle&metric=coverage)](https://sonarcloud.io/dashboard?id=karlosarr_MyShuttle)
 [![Build Status](https://travis-ci.com/karlosarr/MyShuttle.svg?branch=master)](https://travis-ci.com/karlosarr/MyShuttle)
+[![Build Status](https://dev.azure.com/karlosarr/MyShuttle/_apis/build/status/karlosarr.MyShuttle?branchName=master)](https://dev.azure.com/karlosarr/MyShuttle/_build/latest?definitionId=9&branchName=master)
 
 MyShuttle is a sample Java/JEE application that provides booking system, admin portal and a control system for the drivers. The application uses entirely open source software including Linux, Java, Apache, and MySQL which creates a web front end, an order service, and an integration service.
 
