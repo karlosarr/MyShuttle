@@ -28,6 +28,8 @@ stages:
         options: '-DskipITs --settings ./maven/settings.xml clean install'
         publishJUnitResults: true
         testResultsFiles: '**/surefire-reports/TEST-*.xml'
+        jdkVersionOption: '1.8'
+        jdkArchitectureOption: 'x64'
         javaHomeOption: 'JDKVersion'
         mavenVersionOption: 'Default'
         mavenAuthenticateFeed: false
@@ -36,9 +38,13 @@ stages:
         sqMavenPluginVersionChoice: 'latest'
 
     - task: Maven@3
+      displayName: package
       inputs:
         mavenPomFile: 'pom.xml'
+        goals: 'clean package'
         publishJUnitResults: false
+        jdkVersionOption: '1.8'
+        jdkArchitectureOption: 'x64'
         javaHomeOption: 'JDKVersion'
         mavenVersionOption: 'Default'
         mavenAuthenticateFeed: false
