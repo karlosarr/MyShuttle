@@ -37,6 +37,7 @@ pipeline {
                             steps {
                                 script {
                                     sh 'mvn -DskipITs --settings ./maven/settings.xml clean package'
+                                    sh 'cp target/ src/'
                                 }
                                 step([$class: 'TeamCollectResultsPostBuildAction'])
                             }
