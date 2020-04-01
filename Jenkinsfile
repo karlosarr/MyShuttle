@@ -50,6 +50,7 @@ pipeline {
                         stage('Building image') {
                             steps{
                                 script {
+                                    sh 'cd src'
                                     dockerImage = docker.build registry + ":v1.0.$BUILD_NUMBER"
                                     dockerImage = docker.build registry + ":latest"
                                 }
