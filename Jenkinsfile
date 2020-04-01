@@ -1,4 +1,8 @@
 pipeline {
+    environment {
+        registry = "karlosarr/myshuttle"
+        registryCredential = 'dockerhub'
+    }
     agent {
         label "swarm"
     }
@@ -28,15 +32,42 @@ pipeline {
                     when {
                         branch 'master'
                     }
-                    steps {
-                        script {
-                            sh 'mvn -DskipITs --settings ./maven/settings.xml clean package'
+                    stages {
+                        stage('Building binary') {
+                            steps {
+                                script {
+                                    sh 'mvn -DskipITs --settings ./maven/settings.xml clean package'
+                                }
+                                step([$class: 'TeamCollectResultsPostBuildAction'])
+                            }
+                            post {
+                                always {
+                                    archiveArtifacts artifacts: 'target/*.war, *.sql', onlyIfSuccessful: true
+                                }
+                            }
                         }
-                        step([$class: 'TeamCollectResultsPostBuildAction'])
-                    }
-                    post {
-                        always {
-                            archiveArtifacts artifacts: 'target/*.war, *.sql', onlyIfSuccessful: true
+                        stage('Building image') {
+                            steps{
+                                script {
+                                    dockerImage = docker.build registry + ":v1.0.$BUILD_NUMBER"
+                                    dockerImage = docker.build registry + ":latest"
+                                }
+                            }
+                        }
+                        stage('Deploy Image') {
+                            steps{
+                                script {
+                                    docker.withRegistry( '', registryCredential ) {
+                                        dockerImage.push()
+                                    }
+                                }
+                            }
+                        }
+                        stage('Remove Unused docker image') {
+                            steps{
+                                sh "docker rmi $registry:v1.0.$BUILD_NUMBER"
+                                sh "docker rmi $registry:latest"
+                            }
                         }
                     }
                 }
