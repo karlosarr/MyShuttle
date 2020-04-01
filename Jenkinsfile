@@ -28,48 +28,48 @@ pipeline {
                         sh 'mvn -DskipITs --settings ./maven/settings.xml sonar:sonar'
                     }
                 }
-                stage('Deploy for production') {
-                    when {
-                        branch 'master'
+                stage('Building binary') {
+                    steps {
+                        script {
+                            sh 'mvn -DskipITs --settings ./maven/settings.xml clean package'
+                            sh 'cp -r target/ src/'
+                        }
+                        step([$class: 'TeamCollectResultsPostBuildAction'])
                     }
-                    stages {
-                        stage('Building binary') {
-                            steps {
-                                script {
-                                    sh 'mvn -DskipITs --settings ./maven/settings.xml clean package'
-                                    sh 'cp -r target/ src/'
-                                }
-                                step([$class: 'TeamCollectResultsPostBuildAction'])
-                            }
-                            post {
-                                always {
-                                    archiveArtifacts artifacts: 'target/*.war, *.sql', onlyIfSuccessful: true
-                                }
+                    post {
+                        always {
+                            archiveArtifacts artifacts: 'target/*.war, *.sql', onlyIfSuccessful: true
+                        }
+                    }
+                }
+            }
+        }
+        stage('Deploy for production') {
+            when {
+                branch 'master'
+            }
+            stages {
+                stage('Building image') {
+                    steps{
+                        script {
+                            dockerImage = docker.build registry + ":v1.0.$BUILD_NUMBER", "src/Dockerfile"
+                            dockerImage = docker.build registry + ":latest", "src/Dockerfile"
+                        }
+                    }
+                }
+                stage('Deploy Image') {
+                    steps{
+                        script {
+                            docker.withRegistry( '', registryCredential ) {
+                                dockerImage.push()
                             }
                         }
-                        stage('Building image') {
-                            steps{
-                                script {
-                                    dockerImage = docker.build registry + ":v1.0.$BUILD_NUMBER", "src/Dockerfile"
-                                    dockerImage = docker.build registry + ":latest", "src/Dockerfile"
-                                }
-                            }
-                        }
-                        stage('Deploy Image') {
-                            steps{
-                                script {
-                                    docker.withRegistry( '', registryCredential ) {
-                                        dockerImage.push()
-                                    }
-                                }
-                            }
-                        }
-                        stage('Remove Unused docker image') {
-                            steps{
-                                sh "docker rmi $registry:v1.0.$BUILD_NUMBER"
-                                sh "docker rmi $registry:latest"
-                            }
-                        }
+                    }
+                }
+                stage('Remove Unused docker image') {
+                    steps{
+                        sh "docker rmi $registry:v1.0.$BUILD_NUMBER"
+                        sh "docker rmi $registry:latest"
                     }
                 }
             }
